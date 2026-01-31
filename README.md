@@ -47,22 +47,11 @@ You'll get a URL like: `https://yourusername--video-watch-mcp-mcp-server.modal.r
 
 ### 4. Add to Claude Desktop
 
-Edit your `claude_desktop_config.json`:
+In Desktop settings go to Connectors. Find "Add Custom Connectors" button and paste the link. Name it anything that makes sense to you, like "Video MCP".
 
-**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
-**Mac:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+Save. Reload Desktop.
 
-Add under `mcpServers`:
-
-```json
-{
-  "mcpServers": {
-    "video-watch": {
-      "url": "https://yourusername--video-watch-mcp-mcp-server.modal.run"
-    }
-  }
-}
-```
+Mobile app will connect automatically after that.
 
 ### 5. Use it
 
