@@ -65,9 +65,10 @@ def process_video(url: str, fps: float = 0.5, max_frames: int = 10):
         Path(frames_dir).mkdir()
 
         # Download video (with browser impersonation for tricky platforms)
+        # Format: try 720p or lower, fallback to best available
         result = subprocess.run([
             "yt-dlp",
-            "-f", "best[height<=720]",
+            "-f", "best[height<=720]/best",
             "-o", video_path,
             "--no-playlist",
             "--impersonate", "chrome",
