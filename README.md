@@ -6,10 +6,18 @@ Let Claude "watch" videos with you. Send a TikTok, YouTube, or any video link - 
 
 ## What it does
 
+Three tools, pick based on content:
+
+| Tool | Returns | Best for |
+|------|---------|----------|
+| `video_listen` | Transcript only | Talking heads, podcasts, commentary |
+| `video_see` | Frames only | Dance, visual art, memes, scenery |
+| `watch_video` | Both | When audio AND visuals both matter |
+
 1. You send Claude a video link
-2. Claude calls the `watch_video` tool
-3. The cloud service downloads the video, extracts key frames, transcribes the audio
-4. Claude receives the images + transcript
+2. Claude picks the right tool (or you tell it which)
+3. Cloud service downloads, extracts what's needed
+4. Claude receives just what it needs - no context bloat
 5. You watch it "together"
 
 ## Quick Start (5 minutes)
