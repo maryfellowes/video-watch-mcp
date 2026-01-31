@@ -13,9 +13,11 @@ from pathlib import Path
 # Define the container image with all our dependencies
 image = (
     modal.Image.debian_slim(python_version="3.11")
-    .apt_install("ffmpeg")
+    .apt_install("ffmpeg", "curl")
     .pip_install(
         "yt-dlp",
+        "curl_cffi",  # For browser impersonation (TikTok, Instagram, etc.)
+        "brotli",     # For compression support
         "openai-whisper",
         "torch",
         "fastapi[standard]",
@@ -71,12 +73,13 @@ def process_video(url: str, fps: float = 0.5, max_frames: int = 20):
         frames_dir = f"{tmpdir}/frames"
         Path(frames_dir).mkdir()
 
-        # Download video with yt-dlp
+        # Download video with yt-dlp (browser impersonation for tricky platforms)
         result = subprocess.run([
             "yt-dlp",
             "-f", "best[height<=720]",  # Cap at 720p to save bandwidth
             "-o", video_path,
             "--no-playlist",
+            "--impersonate", "chrome",
             url
         ], capture_output=True, text=True)
 
