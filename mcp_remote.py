@@ -18,7 +18,7 @@ from pathlib import Path
 # Image with all dependencies
 image = (
     modal.Image.debian_slim(python_version="3.11")
-    .apt_install("ffmpeg", "curl")
+    .apt_install("ffmpeg", "curl", "unzip")
     .pip_install(
         "yt-dlp",
         "curl_cffi",  # For browser impersonation (TikTok, Instagram, etc.)
@@ -29,6 +29,9 @@ image = (
         "starlette",
         "sse-starlette",
         "uvicorn",
+    )
+    .run_commands(
+        "curl -fsSL https://deno.land/install.sh | DENO_INSTALL=/usr/local sh",
     )
 )
 
@@ -43,6 +46,7 @@ def download_video(url: str, video_path: str) -> dict:
         "-o", video_path,
         "--no-playlist",
         "--impersonate", "chrome",
+        "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
         url
     ], capture_output=True, text=True)
 
